@@ -67,7 +67,7 @@ episode_rewards = []
 print("Beginning training")
 start = time.time()
 
-for i_episode in range(num_episodes):
+for i_episode in range(NUM_EPISODES):
     # Initialize the environment and get its state
     total_reward = 0
     state, info = env.reset()
