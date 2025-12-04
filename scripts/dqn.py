@@ -1,6 +1,7 @@
 import math
 import time
 import random
+from tqdm import tqdm
 import matplotlib
 import matplotlib.pyplot as plt
 from collections import namedtuple, deque
@@ -228,7 +229,7 @@ episode_rewards = []
 print("Beginning training")
 start = time.time()
 
-for i_episode in range(NUM_EPISODES):
+for i_episode in tqdm(range(NUM_EPISODES), total=NUM_EPISODES):
     # Initialize the environment and get its state
     total_reward = 0
     state, info = env.reset()
