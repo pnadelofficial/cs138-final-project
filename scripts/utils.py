@@ -13,6 +13,21 @@ import gymnasium as gym
 from gymnasium.wrappers import TimeLimit
 import bluesky_gym
 
+###################
+# Hyperparameters #
+###################
+RUN_ID = 1
+BATCH_SIZE = 256
+GAMMA = 0.99
+EPS_START = 0.9
+EPS_END = 0.01
+EPS_DECAY = 5000
+TAU = 0.005
+LR = 1e-4
+HIDDEN_SIZE = 256
+N_BINS_PER_DIM = 15
+NUM_EPISODES = 600
+
 device = torch.device(
     "cuda" if torch.cuda.is_available() else
     "mps" if torch.backends.mps.is_available() else

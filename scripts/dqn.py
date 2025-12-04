@@ -16,21 +16,6 @@ import bluesky_gym
 
 from utils import *
 
-###################
-# Hyperparameters #
-###################
-RUN_ID = 1
-BATCH_SIZE = 256
-GAMMA = 0.99
-EPS_START = 0.9
-EPS_END = 0.01
-EPS_DECAY = 5000
-TAU = 0.005
-LR = 1e-4
-HIDDEN_SIZE = 256
-N_BINS_PER_DIM = 15
-NUM_EPISODES = 600
-
 ##################
 # Initialization #
 ##################
