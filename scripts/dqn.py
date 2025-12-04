@@ -54,12 +54,12 @@ def select_action(state):
     else:
         # Explore: sample random DISCRETE actions
         heading_action = torch.tensor(
-            [[random.randrange(n_bins_per_dim)]],
+            [[random.randrange(N_BINS_PER_DIM)]],
             device=device,
             dtype=torch.long
         )
         speed_action = torch.tensor(
-            [[random.randrange(n_bins_per_dim)]],
+            [[random.randrange(N_BINS_PER_DIM)]],
             device=device,
             dtype=torch.long
         )
