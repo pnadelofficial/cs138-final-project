@@ -201,6 +201,7 @@ device = torch.device(
     "mps" if torch.backends.mps.is_available() else
     "cpu"
 )
+print(f"Using device: {device}")
 
 bluesky_gym.register_envs()
 env = gym.make('SectorCREnv-v0', render_mode='human')
