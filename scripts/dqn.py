@@ -45,7 +45,7 @@ env = gym.make('SectorCREnv-v0', render_mode='human')
 
 original_action_space = env.action_space
 action_dim = original_action_space.shape[0]
-n_discrete_actions = n_bins_per_dim ** action_dim
+n_discrete_actions = N_BINS_PER_DIM ** action_dim
 
 state, info = env.reset()
 state = state_dict_to_tensor(state)
