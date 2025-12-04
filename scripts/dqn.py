@@ -79,8 +79,8 @@ def discrete_to_continuous(heading_action, speed_action):
     heading_idx = heading_action.item()
     speed_idx = speed_action.item()
 
-    heading = heading_low + (heading_high - heading_low) * (heading_idx / (n_bins_per_dim - 1))
-    speed = speed_low + (speed_high - speed_low) * (speed_idx / (n_bins_per_dim - 1))
+    heading = heading_low + (heading_high - heading_low) * (heading_idx / (N_BINS_PER_DIM - 1))
+    speed = speed_low + (speed_high - speed_low) * (speed_idx / (N_BINS_PER_DIM - 1))
 
     return np.array([heading, speed])
 
