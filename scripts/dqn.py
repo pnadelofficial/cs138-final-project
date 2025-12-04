@@ -40,6 +40,7 @@ device = torch.device(
     "cpu"
 )
 
+bluesky_gym.register_envs()
 env = gym.make('SectorCREnv-v0', render_mode='human')
 
 original_action_space = env.action_space
