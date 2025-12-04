@@ -13,6 +13,12 @@ import gymnasium as gym
 from gymnasium.wrappers import TimeLimit
 import bluesky_gym
 
+device = torch.device(
+    "cuda" if torch.cuda.is_available() else
+    "mps" if torch.backends.mps.is_available() else
+    "cpu"
+)
+
 Transition = namedtuple('Transition', ('state', 'action', 'next_state', 'reward'))
 
 class ReplayMemory(object):
