@@ -65,7 +65,7 @@ steps_done = 0
 episode_durations = []
 episode_rewards = []
 print("Beginning training")
-start = time.now()
+start = time.time.now()
 
 for i_episode in range(num_episodes):
     # Initialize the environment and get its state
@@ -108,7 +108,7 @@ for i_episode in range(num_episodes):
             episode_durations.append(t + 1)
             episode_rewards.append(reward)
             break
-end = time.now()
+end = time.time.now()
 dur = end - curr
 print(f'Training complete with {dur/60} minutes.')
 
