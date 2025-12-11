@@ -10,7 +10,9 @@ env_name = 'DescentEnv-v0' # can change to other environments
 ## standard ppo
 print("### STANDARD PPO ###")
 env = gym.make(env_name)
-model = PPO.load("standard_ppo_descent")  # ("MultiInputPolicy", env, verbose=1, learning_rate=3e-4, tensorboard_log="./tensorboard_logs/")
+model = PPO("MultiInputPolicy", env, verbose=1, learning_rate=3e-4, tensorboard_log="./tensorboard_logs/")
+# for loading a pre-trained model, uncomment below and comment above
+# model = PPO.load("standard_ppo_descent") 
 model.set_env(env)
 model.learn(total_timesteps=timesteps, reset_num_timesteps=False, tb_log_name="PPO_2")
 model.save(f"standard_ppo_{env_name.lower()}")
