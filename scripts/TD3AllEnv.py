@@ -142,4 +142,3 @@ with open('td3_all_environments_results.json', 'w') as f:
     json.dump(all_results, f, indent=2)
 
 print("\nResults saved to: td3_all_environments_results.json")
-print("="*80)
