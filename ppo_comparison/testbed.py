@@ -23,9 +23,9 @@ class TestBed:
             "enable_critic_lstm":True
         }
 
-        self.standard_model = PPO("MultiInputPolicy", env, verbose=1, learning_rate=3e-4, tensorboard_log=f"./{self.env_name.lower()}_tensorboard_logs/")
-        self.model_2layer = RecurrentPPO("MultiInputLstmPolicy", env, verbose=1, learning_rate=5e-4, tensorboard_log=f"./{self.env_name.lower()}_tensorboard_logs/", policy_kwargs=self.two_layer_kwargs, n_epochs=17, n_steps=2048, ent_coef=0.02, batch_size=512)
-        self.model_4layer = RecurrentPPO("MultiInputLstmPolicy", env, verbose=1, learning_rate=5e-4, tensorboard_log=f"./{self.env_name.lower()}_tensorboard_logs/", policy_kwargs=self.four_layer_kwargs, n_epochs=17, n_steps=2048, ent_coef=0.02, batch_size=512)
+        self.standard_model = PPO("MultiInputPolicy", self.env, verbose=1, learning_rate=3e-4, tensorboard_log=f"./{self.env_name.lower()}_tensorboard_logs/")
+        self.model_2layer = RecurrentPPO(policy="MultiInputLstmPolicy", env=self.env, verbose=1, learning_rate=5e-4, tensorboard_log=f"./{self.env_name.lower()}_tensorboard_logs/", policy_kwargs=self.two_layer_kwargs, n_epochs=17, n_steps=2048, ent_coef=0.02, batch_size=512)
+        self.model_4layer = RecurrentPPO("MultiInputLstmPolicy", env=self.env, verbose=1, learning_rate=5e-4, tensorboard_log=f"./{self.env_name.lower()}_tensorboard_logs/", policy_kwargs=self.four_layer_kwargs, n_epochs=17, n_steps=2048, ent_coef=0.02, batch_size=512)
         self.models = {
             "PPO_2":self.standard_model,
             "RecurrentPPO_1":self.model_2layer,

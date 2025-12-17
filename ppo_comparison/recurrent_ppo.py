@@ -32,7 +32,30 @@ class RecurrentPPO(OnPolicyAlgorithm):
         "MultiInputLstmPolicy": MultiInputLstmPolicy,
     }
 
-    def __init__(policy, env, learning_rate, n_steps, batch_size, n_epochs, gamma, gae_lambda, clip_range, ent_coef, max_grad_norm, use_sde, sde_sample_freq, stats_window_size, tensorboard_log, policy_kwargs, verbose, seed, device):
+    def __init__(
+        self,
+        policy, 
+        env, 
+        learning_rate=3e-4, 
+        n_steps=128,
+        batch_size=128,
+        n_epochs=10,
+        gamma=0.99,
+        gae_lambda=0.95,
+        clip_range=0.2,
+        normalize_advantage=True,
+        ent_coef=0.0,
+        vf_coef=0.5,
+        max_grad_norm=0.5,
+        use_sde=False,
+        sde_sample_freq=-1,
+        stats_window_size=100,
+        tensorboard_log="./runs/",
+        policy_kwargs=None,
+        verbose=0,
+        seed=None,
+        device="auto",
+        _init_setup_model=True):
         """
         Initializes the RecurrentPPO algorithm. 
         """
@@ -45,7 +68,7 @@ class RecurrentPPO(OnPolicyAlgorithm):
             spaces.MultiBinary,
         ),
         super().__init__(
-            policy, env, learning_rate=learning_rate, n_steps=n_steps, gamma=gamma, gae_lambda=gae_lambda, ent_coef=ent_coef, vf_coef=vf_coef, max_grad_norm=max_grad_norm, use_sde=use_sde, sde_sample_freq=sde_sample_freq,stats_window_size=stats_window_size, tensorboard_log=tensorboard_log, policy_kwargs=policy_kwargs, verbose=verbose seed=seed, device=device, _init_setup_model=False, supported_action_spaces=supported_action_spaces
+            policy, env, learning_rate=learning_rate, n_steps=n_steps, gamma=gamma, gae_lambda=gae_lambda, ent_coef=ent_coef, vf_coef=vf_coef, max_grad_norm=max_grad_norm, use_sde=use_sde, sde_sample_freq=sde_sample_freq,stats_window_size=stats_window_size, tensorboard_log=tensorboard_log, policy_kwargs=policy_kwargs, verbose=verbose, seed=seed, device=device, _init_setup_model=False, supported_action_spaces=supported_action_spaces
         )
 
         # recurrent ppo specific hyperparameters/kwargs
@@ -91,7 +114,7 @@ class RecurrentPPO(OnPolicyAlgorithm):
         lstm = self.policy.lstm_actor
 
         # creating holder for the last lstm states
-        self._last_lstm_states = RRNStates(
+        self._last_lstm_states = RNNStates(
             (
                 torch.zeros((lstm.num_layers, self.n_envs, lstm.hidden_size), device=self.device), # the last lstm state is of shape the number of layers (we vary this from 2 to 4) x the number of envs (will be 1, but needed to shape consistences) x the hidden size of the network (usually 256)
                 torch.zeros((lstm.num_layers, self.n_envs, lstm.hidden_size), device=self.device)
@@ -291,14 +314,14 @@ class RecurrentPPO(OnPolicyAlgorithm):
 
     # learn method that called the super class
     def learn(
-        self: SelfRecurrentPPO,
+        self,
         total_timesteps: int,
         callback: MaybeCallback = None,
         log_interval: int = 1,
         tb_log_name: str = "RecurrentPPO",
         reset_num_timesteps: bool = True,
         progress_bar: bool = False,
-    ) -> SelfRecurrentPPO:
+    ):
         return super().learn(
             total_timesteps=total_timesteps,
             callback=callback,
