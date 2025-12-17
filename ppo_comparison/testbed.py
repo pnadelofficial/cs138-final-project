@@ -1,7 +1,7 @@
 import gymnasium as gym
 import bluesky_gym
 from stable_baselines3 import PPO
-from sb3_contrib import RecurrentPPO
+from recurrent_ppo import RecurrentPPO
 
 bluesky_gym.register_envs()
 
