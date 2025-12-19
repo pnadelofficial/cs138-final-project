@@ -24,7 +24,7 @@ class TestBed:
         }
 
         self.standard_model = PPO("MultiInputPolicy", self.env, verbose=1, learning_rate=3e-4, tensorboard_log=f"./{self.env_name.lower()}_tensorboard_logs/")
-        self.model_2layer = RecurrentPPO(policy="MultiInputLstmPolicy", env=self.env, verbose=1, learning_rate=5e-4, tensorboard_log=f"./{self.env_name.lower()}_tensorboard_logs/", policy_kwargs=self.two_layer_kwargs, n_epochs=17, n_steps=2048, ent_coef=0.02, batch_size=512)
+        self.model_2layer = RecurrentPPO("MultiInputLstmPolicy", env=self.env, verbose=1, learning_rate=5e-4, tensorboard_log=f"./{self.env_name.lower()}_tensorboard_logs/", policy_kwargs=self.two_layer_kwargs, n_epochs=17, n_steps=2048, ent_coef=0.02, batch_size=512)
         self.model_4layer = RecurrentPPO("MultiInputLstmPolicy", env=self.env, verbose=1, learning_rate=5e-4, tensorboard_log=f"./{self.env_name.lower()}_tensorboard_logs/", policy_kwargs=self.four_layer_kwargs, n_epochs=17, n_steps=2048, ent_coef=0.02, batch_size=512)
         self.models = {
             "PPO_2":self.standard_model,
@@ -42,6 +42,14 @@ class TestBed:
         for log_name in self.models:
             self._train_model(self.models[log_name], log_name)
     
+    def evaluate(self):
+        for log_name in self.models:
+            obs = self.env.reset()
+            while True:
+                action, _states = model.predict(obs)
+                obs, rewards, dones, info = env.step(action)
+                print(info)
+    
 def main():
     env_names = [
         "SectorCREnv-v0",
@@ -56,6 +64,7 @@ def main():
     for env_name in env_names:
         test_bed = TestBed(env_name=env_name)
         test_bed.test()
+        test_bed.evaluate()
 
 if __name__ == "__main__":
     main()

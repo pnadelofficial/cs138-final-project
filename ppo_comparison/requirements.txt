@@ -1,0 +1,6 @@
+numpy 
+torch
+gym
+stable-baselines3
+sb3-contrib
+bluesky-gym
